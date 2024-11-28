@@ -1,0 +1,64 @@
+<div class="min-h-screen flex items-center justify-center w-full">
+  <div class="flex flex-col">
+    <div class="sm:mx-auto mb-6">
+      <p class="text-center text-xl font-bold">Inicio de Sesion</p>
+      <p class="text-center w-80">
+        Ingrese los datos proporcinados al momento de registrar sus mascotas
+      </p>
+    </div>
+    <div class="card flex justify-center">
+      <form [formGroup]="loginForm" (submit)="login()" autocomplete="off">
+        <div pFocusTrap class="w-full sm:w-80 flex flex-col gap-6">
+          <p-iconfield>
+            <input
+              type="text"
+              f
+              pInputText
+              id="input"
+              formControlName="dni"
+              type="text"
+              placeholder="Numero de Carnet"
+              [fluid]="true"
+            />
+            <p-inputicon>
+              <i class="pi pi-id-card"></i>
+            </p-inputicon>
+          </p-iconfield>
+
+          <p-datepicker
+            placeholder="Fecha de Nacimiento"
+            styleClass="w-full"
+            class="w-full"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            formControlName="birthDate"
+            appendTo="body"
+          >
+          <ng-template pTemplate="footer">
+            <p-button class="p-datepicker-prev hidden">Previous</p-button>
+            <p-button class="p-datepicker-next hidden">Next</p-button>
+          </ng-template></p-datepicker>
+
+          @if (message()) {
+          <div class="card">
+            <p-message
+              severity="error"
+              icon="pi pi-times-circle"
+              styleClass="mb-2"
+              >{{ message() }}
+            </p-message>
+          </div>
+
+          }
+
+          <p-button
+            type="submit"
+            label="Ingresar"
+            class="mt-2"
+            styleClass="w-full"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

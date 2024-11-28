@@ -1,0 +1,26 @@
+<div class="card">
+  <p-menubar [model]="items">
+    <ng-template #start>
+      <img src="/images/app-icon.png" alt="App Icon" class="w-10 mr-2" />
+    </ng-template>
+    <ng-template #item let-item let-root="root">
+      <ng-container>
+        <a [routerLink]="item.routerLink" class="p-menubar-item-link">
+          <!-- <span [class]="item.icon"></span> -->
+          <span class="ml-2">{{ item.label }}</span>
+        </a>
+      </ng-container>
+    </ng-template>
+    <ng-template #end>
+      <div class="flex items-center gap-2">
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          shape="circle"
+        />
+      </div>
+    </ng-template>
+  </p-menubar>
+</div>
+<div>
+  <router-outlet />
+</div>
