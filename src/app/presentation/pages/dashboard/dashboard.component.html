@@ -1,1 +1,132 @@
-<p>dashboard works!</p>,
+<div class="card px-0s sm:px-4 animate-fadein">
+  <p-dataview #dv [value]="pets()" [layout]="layout">
+    <ng-template #header>
+      <div class="flex justify-between items-center">
+        <span class="font-medium text-xl">Total: {{ pets().length }}</span>
+        <p-selectbutton
+          [(ngModel)]="layout"
+          [options]="options"
+          [allowEmpty]="false"
+        >
+          <ng-template #item let-item>
+            <i
+              class="pi"
+              [ngClass]="{
+                'pi-bars': item === 'list',
+                'pi-table': item === 'grid'
+              }"
+            ></i>
+          </ng-template>
+        </p-selectbutton>
+      </div>
+    </ng-template>
+    <ng-template #list let-items>
+      <div *ngFor="let item of items; let first = first">
+        <div
+          class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
+          [ngClass]="{
+            'border-t border-surface-200 dark:border-surface-700': !first
+          }"
+        >
+          <div class="md:w-40 relative">
+            <img
+              class="block xl:block mx-auto rounded rounded-xl w-full"
+              [src]="item.image"
+              [alt]="item.name"
+            />
+          </div>
+          <div
+            class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6"
+          >
+            <div
+              class="flex flex-row md:flex-col justify-between items-start gap-2"
+            >
+              <div>
+                <div class="text-lg font-medium mt-2">{{ item.name }}</div>
+
+                <span
+                  class="font-medium text-surface-500 dark:text-surface-400 text-sm"
+                >
+                  {{ item.breed.species }} - {{ item.breed.name }}
+                </span>
+              </div>
+              <div>{{ item.sex | titlecase }}</div>
+            </div>
+            <div class="flex flex-col md:items-end gap-8">
+              <span class="text-xl font-semibold">{{
+                item.createdAt | date : "longDate"
+              }}</span>
+              <div class="flex flex-row-reverse md:flex-row gap-2">
+                <button
+                  pButton
+                  icon="pi pi-eye"
+                  [routerLink]="item.id"
+                  [outlined]="true"
+                ></button>
+                <button
+                  pButton
+                  icon="pi pi-credit-card"
+                  label="Generar carnet"
+                  [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"
+                  class="flex-auto md:flex-initial whitespace-nowrap"
+                  (click)="card(item)"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #grid let-items>
+      <div class="grid grid-cols-12 gap-4">
+        <div
+          *ngFor="let product of items"
+          class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2"
+        >
+          <div class="p-6 border border-surface-200 rounded flex flex-col">
+            <div class="bg-surface-50 flex justify-center rounded p-4">
+              <div class="relative mx-auto">
+                <img
+                  class="rounded rounded-xl w-full"
+                  [src]="product.image"
+                  style="max-width: 300px"
+                />
+              </div>
+            </div>
+            <div class="pt-6">
+              <div class="flex flex-row justify-between products-start gap-2">
+                <div>
+                  <div class="text-lg font-medium mt-1">{{ product.name }}</div>
+                  <span
+                    class="font-medium text-surface-500 dark:text-surface-400 text-sm"
+                    >{{ product.breed.species }} -
+                    {{ product.breed.name }}</span
+                  >
+                </div>
+                <div>
+                  {{ product.sex | titlecase }}
+                </div>
+              </div>
+              <div class="flex flex-col gap-6 mt-6">
+                <span class="text-xl font-semibold">{{
+                  product.createdAt | date : "longDate"
+                }}</span>
+                <div class="flex gap-2">
+                  <button
+                    pButton
+                    icon="pi pi-credit-card"
+                    label="Generar carnet"
+                    [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
+                    class="flex-auto whitespace-nowrap"
+                    (click)="card(product)"
+                  ></button>
+                  <button pButton icon="pi pi-eye" outlined  [routerLink]="product.id"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataview>
+</div>

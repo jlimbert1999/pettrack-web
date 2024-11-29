@@ -32,7 +32,7 @@ export default class HomeComponent implements OnInit {
       },
       {
         label: 'Mis Mascotas',
-        routerLink: '/dashboard',
+        routerLink: '/pets',
       },
     ];
   }

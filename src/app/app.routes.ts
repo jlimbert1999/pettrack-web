@@ -6,11 +6,23 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./presentation/layouts/home/home.component'),
     loadChildren: () => [
+      { path: '', pathMatch: 'full', redirectTo: 'pets' },
       {
-        path: 'dashboard',
-        canActivate: [isAuthenticatedGuard],
-        loadComponent: () =>
-          import('./presentation/pages/dashboard/dashboard.component'),
+        path: 'pets',
+        children: [
+          {
+            path: '',
+            canActivate: [isAuthenticatedGuard],
+            loadComponent: () =>
+              import('./presentation/pages/dashboard/dashboard.component'),
+          },
+          {
+            path: ':id',
+            canActivate: [isAuthenticatedGuard],
+            loadComponent: () =>
+              import('./presentation/pages/detail/detail.component'),
+          },
+        ],
       },
     ],
   },

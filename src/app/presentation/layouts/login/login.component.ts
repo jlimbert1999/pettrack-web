@@ -20,7 +20,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { DatePicker } from 'primeng/datepicker';
 import { Message } from 'primeng/message';
 
-import { AuthService } from '../../services';
+import { OwnerService } from '../../services';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 
@@ -44,7 +44,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export default class LoginComponent {
   private _formBuilder = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private authService = inject(OwnerService);
   private router = inject(Router);
 
   message = signal<string | null>(null);
@@ -59,7 +59,7 @@ export default class LoginComponent {
     this.message.set(null);
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/pets');
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {

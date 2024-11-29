@@ -1,20 +1,19 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, of, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class OwnerService {
   private http = inject(HttpClient);
-  private readonly url = `${environment.apiUrl}/owners/auth`;
+  private readonly url = `${environment.apiUrl}/owners-portal`;
   private _user = signal<any | null>(null);
-  constructor() {}
 
   login(form: Object) {
     return this.http
-      .post<{ token: string }>(this.url, form)
+      .post<{ token: string }>(`${this.url}/auth`, form)
       .pipe(map(({ token }) => this._setAuthentication(token)));
   }
 
@@ -28,25 +27,37 @@ export class AuthService {
     return this.http
       .get<{
         token: string;
-      }>(this.url, { headers })
+      }>(`${this.url}/auth`, { headers })
       .pipe(
         tap((resp) => console.log(resp)),
-        map(({ token }) => {
-          return this._setAuthentication(token);
-        }),
+        map(({ token }) => true),
         catchError(() => {
           return of(false);
         })
       );
   }
 
-  private _setAuthentication(token: string): boolean {
-    localStorage.setItem('token', token);
-    return true;
-  }
-
   logout() {
     localStorage.removeItem('token');
     this._user.set(null);
+  }
+
+  getDetail(id: string) {
+    return this.http.get(`${this.url}/detail/${id}`);
+  }
+
+  getPetTreatments(petId: string, category?: string) {
+    return this.http.get<any[]>(`${this.url}/treatments/${petId}`);
+  }
+
+  getPets() {
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<any[]>(`${this.url}/pets`, { headers });
+  }
+
+  private _setAuthentication(token: string): boolean {
+    localStorage.setItem('token', token);
+    return true;
   }
 }
