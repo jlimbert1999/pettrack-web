@@ -1,7 +1,9 @@
-<div class="min-h-screen flex items-center justify-center w-full">
-  <div class="flex flex-col">
+<div class="min-h-screen flex items-center justify-center w-full bg-gray-100">
+  <div class="flex flex-col bg-white rounded-xl shadow-lg p-8">
     <div class="sm:mx-auto mb-6">
-      <p class="text-center text-xl font-bold">Inicio de Sesion</p>
+      <p class="text-center text-xl font-bold tracking-wide">
+        Inicio de Sesion
+      </p>
       <p class="text-center w-80">
         Ingrese los datos proporcinados al momento de registrar sus mascotas
       </p>
@@ -34,10 +36,11 @@
             formControlName="birthDate"
             appendTo="body"
           >
-          <ng-template pTemplate="footer">
-            <p-button class="p-datepicker-prev hidden">Previous</p-button>
-            <p-button class="p-datepicker-next hidden">Next</p-button>
-          </ng-template></p-datepicker>
+            <ng-template pTemplate="footer">
+              <p-button class="p-datepicker-prev hidden">Previous</p-button>
+              <p-button class="p-datepicker-next hidden">Next</p-button>
+            </ng-template></p-datepicker
+          >
 
           @if (message()) {
           <div class="card">

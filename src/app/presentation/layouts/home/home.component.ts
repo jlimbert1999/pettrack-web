@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Ripple } from 'primeng/ripple';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from '../../components';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
     Ripple,
     CommonModule,
     RouterModule,
+    NavbarComponent,
   ],
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

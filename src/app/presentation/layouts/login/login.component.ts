@@ -55,7 +55,6 @@ export default class LoginComponent {
   });
 
   login() {
-    if (this.loginForm.invalid) return;
     this.message.set(null);
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
@@ -63,6 +62,7 @@ export default class LoginComponent {
       },
       error: (error) => {
         if (error instanceof HttpErrorResponse) {
+          console.log('errors', error);
           this.message.set(error.error['message'] ?? 'Solicitud invalida');
         }
       },

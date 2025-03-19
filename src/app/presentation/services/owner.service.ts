@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { pet } from '../../infrastructure';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +54,13 @@ export class OwnerService {
   getPets() {
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<any[]>(`${this.url}/pets`, { headers });
+    return this.http
+      .get<pet[]>(`${this.url}/pets`, { headers })
+      .pipe(
+        map((resp) =>
+          resp.map(({ image, ...props }) => ({ ...props, image: image?? 'images/no-image.png' }))
+        )
+      );
   }
 
   private _setAuthentication(token: string): boolean {

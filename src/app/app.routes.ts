@@ -6,7 +6,11 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./presentation/layouts/home/home.component'),
     loadChildren: () => [
-      { path: '', pathMatch: 'full', redirectTo: 'pets' },
+      {
+        path: 'inicio',
+        loadComponent: () =>
+          import('./presentation/pages/landing/landing.component'),
+      },
       {
         path: 'pets',
         children: [
@@ -24,6 +28,7 @@ export const routes: Routes = [
           },
         ],
       },
+      { path: '', pathMatch: 'full', redirectTo: 'inicio' },
     ],
   },
   {
