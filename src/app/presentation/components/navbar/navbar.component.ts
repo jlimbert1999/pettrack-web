@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { ProfileComponent } from '../profile/profile.component';
-import { RouterModule } from '@angular/router';
 @Component({
   selector: 'navbar',
   standalone: true,
@@ -14,7 +14,11 @@ import { RouterModule } from '@angular/router';
           <img src="images/icons/app.png" alt="App Icon" class="w-9 h-9 mr-2" />
         </ng-template>
         <ng-template #item let-item let-root="root">
-          <a pRipple class="flex items-center p-menubar-item-link" [routerLink]="item.routerLink">
+          <a
+            pRipple
+            class="flex items-center p-menubar-item-link"
+            [routerLink]="item.routerLink"
+          >
             <span>{{ item.label }}</span>
           </a>
         </ng-template>
@@ -30,6 +34,7 @@ export class NavbarComponent {
   readonly items: MenuItem[] = [
     {
       label: 'Inicio',
+      routerLink: '/home',
     },
     {
       label: 'Mascotas',

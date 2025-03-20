@@ -3,6 +3,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { catchError, map, of, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { user } from '../../infrastructure';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,8 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private http = inject(HttpClient);
   private readonly url = `${environment.apiUrl}/owners-portal`;
-  private _fullname = signal<string | null>(null);
-  fullname = computed(() => this._fullname());
+  private _user = signal<user | null>(null);
+  user = computed(() => this._user());
 
   login(form: Object) {
     return this.http
@@ -21,7 +22,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    this._fullname.set(null);
+    this._user.set(null);
   }
 
   checkAuthStatus() {
@@ -31,15 +32,13 @@ export class AuthService {
       return of(false);
     }
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http
-      .get<{ fullname: string }>(`${this.url}/auth`, { headers })
-      .pipe(
-        tap(({ fullname }) => this._fullname.set(fullname)),
-        map(() => true),
-        catchError(() => {
-          return of(false);
-        })
-      );
+    return this.http.get<user>(`${this.url}/auth`, { headers }).pipe(
+      tap((resp) => this._user.set(resp)),
+      map(() => true),
+      catchError(() => {
+        return of(false);
+      })
+    );
   }
 
   private setAuthentication(token: string): boolean {

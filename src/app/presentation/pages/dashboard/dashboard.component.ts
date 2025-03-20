@@ -5,16 +5,20 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { DataView } from 'primeng/dataview';
-import { AuthService, OwnerService, PdfService } from '../../services';
-import { CommonModule } from '@angular/common';
-import { SelectButton } from 'primeng/selectbutton';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+import { SelectButton } from 'primeng/selectbutton';
+import { SkeletonModule } from 'primeng/skeleton';
 import { DialogModule } from 'primeng/dialog';
-import { pet } from '../../../infrastructure';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
+import { DataView } from 'primeng/dataview';
+
+import { AuthService, OwnerService, PdfService } from '../../services';
 import { PetInfoComponent } from '../../components';
+import { pet } from '../../../infrastructure';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,10 +27,11 @@ import { PetInfoComponent } from '../../components';
     CommonModule,
     RouterModule,
     DataView,
-    SelectButton,
     FormsModule,
+    SelectButton,
     ButtonModule,
     DialogModule,
+    SkeletonModule,
     PetInfoComponent,
   ],
   templateUrl: './dashboard.component.html',
@@ -35,28 +40,37 @@ import { PetInfoComponent } from '../../components';
 export default class DashboardComponent implements OnInit {
   private ownerService = inject(OwnerService);
   private pdfService = inject(PdfService);
+  private owner = inject(AuthService).user();
 
   readonly options = ['list', 'grid'];
   layout: 'list' | 'grid' = 'list';
   pets = signal<pet[]>([]);
-  fullname = inject(AuthService).fullname;
+  user = inject(AuthService).user;
 
   visible: boolean = false;
   selectedPet = signal<pet | null>(null);
+  isLoading = signal(false);
+
+  items = Array.from({ length: 3 }, (_, index) => index);
+
+  ngOnInit(): void {
+    this.getPets();
+  }
 
   showDetail(item: pet) {
     this.selectedPet.set(item);
     this.visible = true;
   }
 
-  ngOnInit(): void {
-    this.ownerService.getPets().subscribe((resp) => {
-      console.log(resp);
-      this.pets.set(resp);
-    });
+  generateIdCard(pet: pet) {
+    this.pdfService.generateCard(pet, this.owner!);
   }
 
-  generateIdCard(pet: pet) {
-    this.pdfService.generateCard(pet);
+  private getPets() {
+    this.isLoading.set(true);
+    this.ownerService.getPets().subscribe({
+      next: (pets) => this.pets.set(pets),
+      complete: () => this.isLoading.set(false),
+    });
   }
 }

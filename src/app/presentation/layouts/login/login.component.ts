@@ -13,6 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -20,9 +21,8 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { DatePicker } from 'primeng/datepicker';
 import { Message } from 'primeng/message';
 
-import { OwnerService } from '../../services';
+import { AuthService } from '../../services';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +44,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export default class LoginComponent {
   private _formBuilder = inject(FormBuilder);
-  private authService = inject(OwnerService);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   message = signal<string | null>(null);

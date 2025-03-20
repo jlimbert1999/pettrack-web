@@ -34,15 +34,15 @@ export default class DetailComponent implements OnInit {
 
   private _getPetDetails() {
     if (!this.id) return;
-    forkJoin([
-      this.ownerService.getDetail(this.id),
-      this.ownerService.getPetTreatments(this.id),
-    ]).subscribe({
-      next: ([detail, history]) => {
-        this.pet.set(detail);
-        this.history.set(history);
-      },
-    });
+    // forkJoin([
+    //   this.ownerService.getDetail(this.id),
+    //   this.ownerService.getPetTreatments(this.id),
+    // ]).subscribe({
+    //   next: ([detail, history]) => {
+    //     this.pet.set(detail);
+    //     this.history.set(history);
+    //   },
+    // });
   }
 
   back() {

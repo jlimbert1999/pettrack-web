@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { Content, TDocumentDefinitions } from 'pdfmake/interfaces';
-import { lastValueFrom } from 'rxjs';
-import { pet } from '../../infrastructure';
+import { TDocumentDefinitions } from 'pdfmake/interfaces';
+
+import { pet, user } from '../../infrastructure';
+
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({
@@ -12,145 +14,86 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class PdfService {
   constructor() {}
 
-  async generateCard(pet: pet) {
-    // Generar el código QR
+  async generateCard(pet: pet, owner: user) {
     const qrData = 'Código único: 12345';
-    console.log(pet.image);
-    // const petImage =  await this.convertImageABase64("images/no-image.png")
+    const petImage = await this.convertImageABase64( pet.image ?? 'images/no-image.png');
+    const iconImage = await this.convertImageABase64('images/icons/pets.png');
 
-    // const docDefinition: TDocumentDefinitions = {
-    //   pageSize: { width: 242, height: 153 }, // Tamaño aproximado de una tarjeta de crédito (85.6mm x 53.98mm)
-    //   pageMargins: [10, 10, 10, 10], // Márgenes
-    //   content: [
-    //     {
-    //       table: {
-    //         widths: ['30%', '70%'], // Proporción de la imagen y la información
-    //         body: [
-    //           [
-    //             {
-    //               ...(pet.image
-    //                 ? {
-    //                     // Imagen de la mascota
-    //                     marginTop:30,
-    //                     image: await this.convertImageABase64(pet.image),
-    //                     width: 60,
-    //                     height: 60,
-    //                     alignment: 'center',
-    //                   }
-    //                 : {
-    //                     width: 60,
-    //                     height: 60,
-    //                     canvas: [
-    //                       {
-    //                         type: 'rect',
-    //                         x: 0,
-    //                         y: 0,
-    //                         w: 60,
-    //                         h: 60,
-    //                         lineWidth: 1,
-    //                       },
-    //                     ],
-    //                   }),
-    //             },
-    //             {
-    //               stack: [
-    //                 {
-    //                   text: `Nombre: ${pet.name}`,
-    //                   bold: true,
-    //                   fontSize: 12,
-    //                   margin: [0, 0, 0, 5],
-    //                   alignment:'center'
-    //                 },
-    //                 {
-    //                   text: `Codigo: ${pet.code}`,
-    //                   fontSize: 10,
-    //                   margin: [0, 0, 0, 5],
-    //                   alignment:'center'
-
-    //                 },
-    //                 {
-    //                   // Código QR generado por pdfMake
-    //                   qr: 'http://10.0.38.30:55600/verify}',
-    //                   fit: 60, // Ajustar el tamaño del QR
-    //                   alignment: 'center',
-    //                 },
-    //               ],
-    //             },
-    //           ],
-    //         ],
-    //       },
-    //       layout: 'noBorders', // Sin bordes en la tabla
-    //     },
-    //   ],
-    // };
-
-    // Generar el PDF
     const documentDefinition: TDocumentDefinitions = {
-      pageSize: { width: 300, height: 200 }, // Tamaño tipo credencial
-      header: {
-        fillColor: '#5bc0de',
-        // style: 'header',
-        
-        text: 'sd',
-        // table: {
-        //   widths: '*',
-        //   body: [
-        //     [
-        //       {
-        //         border: [false, false, false, false],
-        //         fillColor: '#5bc0de',
-        //         text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        //       },
-        //     ],
-        //   ],
-        // },
-      },
+      pageSize: { width: 250, height: 150 },
+      pageMargins: [8, 8, 8, 8],
       content: [
-        { text: 'PET IDENTITY CARD', style: 'header', alignment: 'center' },
         {
+          canvas: [
+            { type: 'rect', x: 0, y: 0, w: 230, h: 25, r: 5, color: '#76C893' },
+          ],
+        },
+        {
+          margin: [10, -22, 10, 0],
           columns: [
-            // {
-            //   image: petImage,
-            //   width: 80,
-            //   height: 80,
-            //   alignment: 'center',
-            // },
+            {
+              text: [
+                { text: 'Mi Carnet de Mascota', fontSize: 10 },
+                {
+                  text: '\nSistema "Registro Único de Mascotas" (RUM)',
+                  fontSize: 6,
+                },
+              ],
+              bold: true,
+              color: 'white',
+            },
+            { image: iconImage, width: 20, height: 20 },
+          ],
+        },
+        {
+          marginTop: 10,
+          columns: [
+            {
+              width: 60,
+              stack: [
+                { image: petImage, width: 60, height: 60 },
+                {
+                  text: pet.name,
+                  bold: true,
+                  alignment: 'center',
+                  marginTop: 5,
+                  fontSize: 9,
+                },
+              ],
+            },
             {
               stack: [
-                { text: 'Nombre: Firulais', style: 'infoText' },
-                { text: 'ID: 0000 1234 5678', style: 'infoText' },
-                { text: 'Dueño: Juan Pérez', style: 'infoText' },
+                {
+                  fontSize: 6,
+                  table: {
+                    widths: [35, '*'],
+                    body: [
+                      [{ text: 'Nombre:', bold: true }, pet.name],
+                      [
+                        { text: 'Raza:', bold: true },
+                        `${pet.sex} - ${pet.breed.name} ${pet.breed.species}`,
+                      ],
+                      [
+                        { text: 'Propietario:', bold: true },
+                        owner.fullname.toUpperCase(),
+                      ],
+                      [{ text: 'Telefono:', bold: true }, owner.phone],
+                      [{ text: 'Dirección:', bold: true }, owner.address],
+                    ],
+                  },
+                  layout: 'noBorders',
+                },
               ],
-              margin: [10, 10, 0, 0],
+              margin: [10, 0, 0, 0],
             },
           ],
         },
         {
-          columns: [
-            // { image: 'data:image/png;base64,...', width: 20 }, // Ícono de dirección
-            { text: 'Calle 123, Ciudad', style: 'infoText' },
-          ],
-          margin: [0, 5, 0, 0],
-        },
-
-        {
-          columns: [
-            // { image: 'data:image/png;base64,...', width: 20 }, // Ícono de teléfono
-            { text: '987-654-321', style: 'infoText' },
-          ],
-          margin: [0, 5, 0, 0],
-        },
-        {
+          absolutePosition: { x: 210, y: 110 },
           qr: qrData,
-          fit: 70,
-          alignment: 'center',
-          margin: [0, 10, 0, 0],
+          fit: 40,
         },
       ],
-      styles: {
-        header: { fontSize: 16, bold: true, fillColor: '#f2f2f2' },
-        infoText: { fontSize: 10, margin: [5, 2, 0, 0] },
-      },
     };
     pdfMake.createPdf(documentDefinition).open();
   }

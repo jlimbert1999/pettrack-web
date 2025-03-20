@@ -5,26 +5,172 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-   <!-- component -->
-<div class="w-full">
-    <div class="flex bg-white" style="height:600px;">
-        <div class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
-            <div>
-                <h2 class="text-3xl font-semibold text-gray-800 md:text-4xl">Build Your New <span class="text-indigo-600">Idea</span></h2>
-                <p class="mt-2 text-sm text-gray-500 md:text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit harum id necessitatibus odio quam quasi, quibusdam rem tempora voluptates. Cumque debitis dignissimos id quam vel!</p>
-                <div class="flex justify-center lg:justify-start mt-6">
-                    <a class="px-4 py-3 bg-gray-900 text-gray-200 text-xs font-semibold rounded hover:bg-gray-800" href="#">Get Started</a>
-                    <a class="mx-4 px-4 py-3 bg-gray-300 text-gray-900 text-xs font-semibold rounded hover:bg-gray-400" href="#">Learn More</a>
+   
+
+    <div class="min-h-screen bg-gray-100 font-sans">
+      <main class="container mx-auto py-12 px-6">
+        <section class="mb-16">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="order-2 md:order-1">
+              <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+                Consulta el registro de tus mascotas fácilmente
+              </h1>
+              <p class="text-lg text-gray-700 mb-6">
+                Accede a la información de tus animales de compañía registrados
+                en la alcaldía con tu número de DNI y fecha de nacimiento. ¡Es
+                rápido, seguro y sencillo!
+              </p>
+              <!-- <p-button label="Acceder a la consulta" icon="pi pi-search" styleClass="p-button-raised p-button-lg"></p-button> -->
+            </div>
+            <div class="order-1 md:order-2">
+              <img
+                src="images/banner.jpeg"
+                alt="Consulta de mascotas"
+                class="rounded-lg shadow-md"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section
+      class="relative bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-20"
+    >
+      <div
+        class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-8"
+      >
+        <!-- Texto y CTA -->
+        <div class="text-center md:text-left">
+          <h1
+            class="text-5xl font-extrabold leading-tight mb-4 animate-fade-in"
+          >
+            Consulta el registro de tus mascotas fácilmente
+          </h1>
+          <p class="text-lg text-gray-200 mb-6 animate-fade-in delay-200">
+            Accede a la información oficial de tus animales de compañía
+            registrados en la alcaldía. Rápido, seguro y sin complicaciones.
+          </p>
+          <a
+            href="/consulta"
+            class="bg-white text-indigo-600 font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-200 transition transform hover:scale-105 inline-block animate-fade-in delay-300"
+          >
+            <i class="pi pi-search mr-2"></i> Acceder a la consulta
+          </a>
+        </div>
+        <!-- Imagen Hero -->
+        <div class="relative">
+          <img
+            src="images/banner.jpeg"
+            alt="Consulta de mascotas"
+            class="w-full max-w-lg mx-auto rounded-lg shadow-md animate-fade-in delay-500"
+          />
+        </div>
+      </div>
+    </section>
+
+        <section class="bg-white py-12 rounded-lg shadow-md mb-16">
+          <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-semibold text-gray-900 text-center mb-8">
+              ¿Cómo funciona?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="text-center">
+                <div
+                  class="w-16 h-16 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="pi pi-id-card text-2xl"></i>
                 </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                  Ingresa tu DNI
+                </h3>
+                <p class="text-gray-600">
+                  Introduce tu número de documento de identidad.
+                </p>
+              </div>
+              <div class="text-center">
+                <div
+                  class="w-16 h-16 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="pi pi-calendar text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                  Ingresa tu fecha de nacimiento
+                </h3>
+                <p class="text-gray-600">
+                  Selecciona tu fecha de nacimiento para verificar tu identidad.
+                </p>
+              </div>
+              <div class="text-center">
+                <div
+                  class="w-16 h-16 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="pi pi-list text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                  Consulta tus mascotas
+                </h3>
+                <p class="text-gray-600">
+                  Visualiza la lista de tus animales de compañía registrados.
+                </p>
+              </div>
             </div>
-        </div>
-        <div class="hidden lg:block lg:w-1/2" style="clip-path:polygon(10% 0, 100% 0%, 100% 100%, 0 100%)">
-            <div class="h-full object-cover" style="background-image: url(images/vaccination-banner.jpg);">
-                <div class="h-full bg-black opacity-25"></div>
+          </div>
+        </section>
+
+        <section class="py-12 bg-gray-200 rounded-lg shadow-md mb-16">
+          <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-semibold text-gray-900 text-center mb-8">
+              ¿Por qué usar esta herramienta?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div
+                  class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center mb-4"
+                >
+                  <i class="pi pi-check text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                  Información al instante
+                </h3>
+                <p class="text-gray-600">
+                  Accede a los datos de tus mascotas de forma rápida y sin
+                  complicaciones.
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div
+                  class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-4"
+                >
+                  <i class="pi pi-lock text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                  Seguridad de tus datos
+                </h3>
+                <p class="text-gray-600">
+                  Tu información personal está protegida en todo momento.
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div
+                  class="w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center mb-4"
+                >
+                  <i class="pi pi-info-circle text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                  Información oficial
+                </h3>
+                <p class="text-gray-600">
+                  Consulta los datos directamente del registro de la alcaldía.
+                </p>
+              </div>
             </div>
-        </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="bg-gray-300 py-4 text-center text-gray-600">
+        <p>&copy; 2025 Tu Alcaldía. Todos los derechos reservados.</p>
+      </footer>
     </div>
-</div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
