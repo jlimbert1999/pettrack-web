@@ -1,72 +1,45 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [],
+  imports: [ButtonModule, RouterModule],
   template: `
-   
-
-    <div class="min-h-screen bg-gray-100 font-sans">
-      <main class="container mx-auto py-12 px-6">
-        <section class="mb-16">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div class="order-2 md:order-1">
-              <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
-                Consulta el registro de tus mascotas fácilmente
-              </h1>
-              <p class="text-lg text-gray-700 mb-6">
-                Accede a la información de tus animales de compañía registrados
-                en la alcaldía con tu número de DNI y fecha de nacimiento. ¡Es
-                rápido, seguro y sencillo!
-              </p>
-              <!-- <p-button label="Acceder a la consulta" icon="pi pi-search" styleClass="p-button-raised p-button-lg"></p-button> -->
-            </div>
-            <div class="order-1 md:order-2">
-              <img
-                src="images/banner.jpeg"
-                alt="Consulta de mascotas"
-                class="rounded-lg shadow-md"
-              />
-            </div>
-          </div>
-        </section>
-
-        <section
-      class="relative bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-20"
-    >
-      <div
-        class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-8"
+    <div class="min-h-screen bg-gray-100 font-sans animate-fadein">
+      <section
+        class="relative bg-gradient-to-r from-green-400 to-blue-500 text-white py-20"
       >
-        <!-- Texto y CTA -->
-        <div class="text-center md:text-left">
-          <h1
-            class="text-5xl font-extrabold leading-tight mb-4 animate-fade-in"
-          >
-            Consulta el registro de tus mascotas fácilmente
-          </h1>
-          <p class="text-lg text-gray-200 mb-6 animate-fade-in delay-200">
-            Accede a la información oficial de tus animales de compañía
-            registrados en la alcaldía. Rápido, seguro y sin complicaciones.
-          </p>
-          <a
-            href="/consulta"
-            class="bg-white text-indigo-600 font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-200 transition transform hover:scale-105 inline-block animate-fade-in delay-300"
-          >
-            <i class="pi pi-search mr-2"></i> Acceder a la consulta
-          </a>
+        <div
+          class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-8"
+        >
+          <div class="text-center md:text-left">
+            <h1
+              class="text-5xl font-extrabold leading-tight mb-4 animate-fade-in"
+            >
+              Consulta el registro de tus mascotas fácilmente
+            </h1>
+            <p
+              class="text-lg text-gray-200 font-semibold mb-6 animate-fade-in delay-200"
+            >
+              Accede a la información de tus animales de compañía registrados
+              por el Gobierno Autónomo Municipal de Sacaba
+            </p>
+            <a routerLink="/auth" class="p-button font-bold" severity="info">
+              <i class="pi pi-search px-2"></i>
+              Realizar consulta
+            </a>
+          </div>
+          <div class="relative">
+            <img
+              src="images/banner.jpeg"
+              alt="Consulta de mascotas"
+              class="w-full max-w-lg mx-auto rounded-lg shadow-md animate-fade-in delay-500"
+            />
+          </div>
         </div>
-        <!-- Imagen Hero -->
-        <div class="relative">
-          <img
-            src="images/banner.jpeg"
-            alt="Consulta de mascotas"
-            class="w-full max-w-lg mx-auto rounded-lg shadow-md animate-fade-in delay-500"
-          />
-        </div>
-      </div>
-    </section>
-
+      </section>
+      <main class="container mx-auto py-12 px-6">
         <section class="bg-white py-12 rounded-lg shadow-md mb-16">
           <div class="container mx-auto px-6">
             <h2 class="text-3xl font-semibold text-gray-900 text-center mb-8">
@@ -80,7 +53,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
                   <i class="pi pi-id-card text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                  Ingresa tu DNI
+                  Ingresa tu numero de carnet
                 </h3>
                 <p class="text-gray-600">
                   Introduce tu número de documento de identidad.
@@ -115,60 +88,49 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
             </div>
           </div>
         </section>
+        <section>
+          <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+            <div
+              class="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-center md:gap-8"
+            >
+              <div>
+                <img src="images/pet.png" class="rounded" alt="" />
+              </div>
+              <div class="">
+                <div class="max-w-lg md:max-w-none">
+                  <h2 class="text-2xl font-semibold text-gray-900 sm:text-3xl">
+                    CAMPAÑA DE ESTERILIZACIÓN CANINA Y FELINA
+                  </h2>
 
-        <section class="py-12 bg-gray-200 rounded-lg shadow-md mb-16">
-          <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-semibold text-gray-900 text-center mb-8">
-              ¿Por qué usar esta herramienta?
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div class="bg-white rounded-lg p-6 shadow-sm">
-                <div
-                  class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center mb-4"
-                >
-                  <i class="pi pi-check text-xl"></i>
+                  <p class="mt-4 text-gray-700 sm:text-lg">
+                    Con el objetivo de fomentar la tenencia responsable de las
+                    mascotas y cuidar la salud de la población, el Gobierno
+                    Autónomo Municipal de Sacaba a través de la Secretaría
+                    Municipal de Salud lanzó el Registro Único de Mascotas
+                    (RUM).
+                  </p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                  Información al instante
-                </h3>
-                <p class="text-gray-600">
-                  Accede a los datos de tus mascotas de forma rápida y sin
-                  complicaciones.
-                </p>
-              </div>
-              <div class="bg-white rounded-lg p-6 shadow-sm">
-                <div
-                  class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-4"
-                >
-                  <i class="pi pi-lock text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                  Seguridad de tus datos
-                </h3>
-                <p class="text-gray-600">
-                  Tu información personal está protegida en todo momento.
-                </p>
-              </div>
-              <div class="bg-white rounded-lg p-6 shadow-sm">
-                <div
-                  class="w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center mb-4"
-                >
-                  <i class="pi pi-info-circle text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                  Información oficial
-                </h3>
-                <p class="text-gray-600">
-                  Consulta los datos directamente del registro de la alcaldía.
-                </p>
               </div>
             </div>
           </div>
         </section>
       </main>
-
-      <footer class="bg-gray-300 py-4 text-center text-gray-600">
-        <p>&copy; 2025 Tu Alcaldía. Todos los derechos reservados.</p>
+      <footer class="bg-gray-300 text-gray-600">
+        <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+          <div class="sm:flex sm:items-center sm:justify-between">
+            <div class="flex justify-center sm:justify-start">
+              <img
+                src="images/sacaba1.png"
+                alt="Institution icon"
+                class="h-24"
+              />
+            </div>
+            <p class="mt-4 text-center lg:mt-0 lg:text-right">
+              &copy; 2025 Gobierno Autónomo Municipal de Sacaba. Todos los
+              derechos reservados.
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   `,

@@ -22,12 +22,12 @@ export const routes: Routes = [
           },
         ],
       },
-      { path: '', pathMatch: 'full', redirectTo: 'auth' },
     ],
   },
-  
+
   {
     path: 'auth',
     loadComponent: () => import('./presentation/layouts/login/login.component'),
   },
+  { path: '**', redirectTo: '/home' },
 ];
