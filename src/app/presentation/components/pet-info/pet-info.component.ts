@@ -81,7 +81,7 @@ import { OwnerService } from '../../services';
                 <div
                   class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4"
                 >
-                  <dt class="font-medium text-gray-900">Esterilizadoi</dt>
+                  <dt class="font-medium text-gray-900">Esterilizado</dt>
                   <dd class="text-gray-700 sm:col-span-2">
                     {{ pet().is_neutered ? 'SI' : 'NO' }}
                   </dd>

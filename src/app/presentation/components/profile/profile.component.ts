@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { PopoverModule } from 'primeng/popover';
 import { ButtonModule } from 'primeng/button';
@@ -15,6 +15,7 @@ import { AuthService } from '../../services';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     PopoverModule,
     ButtonModule,
     AvatarModule,
@@ -44,7 +45,7 @@ import { AuthService } from '../../services';
       </div>
     </p-popover>
     } @else {
-    <p-button label="Iniciar sesion" [rounded]="true" size="small" />
+    <p-button label="Iniciar sesion" [rounded]="true" size="small" routerLink="./auth" />
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

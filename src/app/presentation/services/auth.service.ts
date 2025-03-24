@@ -9,8 +9,8 @@ import { user } from '../../infrastructure';
   providedIn: 'root',
 })
 export class AuthService {
-  private http = inject(HttpClient);
   private readonly url = `${environment.apiUrl}/owners-portal`;
+  private http = inject(HttpClient);
   private _user = signal<user | null>(null);
   user = computed(() => this._user());
 
@@ -36,6 +36,7 @@ export class AuthService {
       tap((resp) => this._user.set(resp)),
       map(() => true),
       catchError(() => {
+        this.logout();
         return of(false);
       })
     );

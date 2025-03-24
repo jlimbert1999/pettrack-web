@@ -66,6 +66,12 @@ export default class DashboardComponent implements OnInit {
     this.pdfService.generateCard(pet, this.owner!);
   }
 
+  generatePetSheet(pet: pet) {
+    this.ownerService.getPetTreatments(pet.id).subscribe((treatments) => {
+      this.pdfService.generatePetSheet(this.owner!, pet, treatments);
+    });
+  }
+
   private getPets() {
     this.isLoading.set(true);
     this.ownerService.getPets().subscribe({

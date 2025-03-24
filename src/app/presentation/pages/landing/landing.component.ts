@@ -22,17 +22,17 @@ import { ButtonModule } from 'primeng/button';
             <p
               class="text-lg text-gray-200 font-semibold mb-6 animate-fade-in delay-200"
             >
-              Accede a la información de tus animales de compañía registrados
-              por el Gobierno Autónomo Municipal de Sacaba
+              Accede a la información de tus mascotas registrados por el
+              Gobierno Autónomo Municipal de Sacaba
             </p>
-            <a routerLink="/auth" class="p-button font-bold" severity="info">
+            <a routerLink="/pets" class="p-button font-bold" severity="info">
               <i class="pi pi-search px-2"></i>
               Realizar consulta
             </a>
           </div>
           <div class="relative">
             <img
-              src="images/banner.jpeg"
+              src="images/banners/banner-landing.jpeg"
               alt="Consulta de mascotas"
               class="w-full max-w-lg mx-auto rounded-lg shadow-md animate-fade-in delay-500"
             />
@@ -82,7 +82,7 @@ import { ButtonModule } from 'primeng/button';
                   Consulta tus mascotas
                 </h3>
                 <p class="text-gray-600">
-                  Visualiza la lista de tus animales de compañía registrados.
+                  Visualiza la lista de tus mascotas registradas.
                 </p>
               </div>
             </div>
@@ -120,7 +120,7 @@ import { ButtonModule } from 'primeng/button';
           <div class="sm:flex sm:items-center sm:justify-between">
             <div class="flex justify-center sm:justify-start">
               <img
-                src="images/sacaba1.png"
+                src="images/logos/sacaba.png"
                 alt="Institution icon"
                 class="h-24"
               />

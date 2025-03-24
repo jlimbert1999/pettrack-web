@@ -16,8 +16,9 @@ import { ProfileComponent } from '../profile/profile.component';
         <ng-template #item let-item let-root="root">
           <a
             pRipple
-            class="flex items-center p-menubar-item-link"
+            class="flex items-center p-menubar-item-link "
             [routerLink]="item.routerLink"
+            routerLinkActive="active"
           >
             <span>{{ item.label }}</span>
           </a>
@@ -28,6 +29,11 @@ import { ProfileComponent } from '../profile/profile.component';
       </p-menubar>
     </div>
   `,
+  styles: `
+    .active {
+      color:#38B000;
+    }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
@@ -35,6 +41,7 @@ export class NavbarComponent {
     {
       label: 'Inicio',
       routerLink: '/home',
+      routerLinkActiveOptions: { exact: true },
     },
     {
       label: 'Mascotas',

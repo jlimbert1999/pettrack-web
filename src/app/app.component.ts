@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
 
 import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
+import { es } from 'primelocale/es.json';
 
 const MyPreset = definePreset(Aura, {
   //Your customizations, see the following sections for examples
@@ -30,7 +31,7 @@ const MyPreset = definePreset(Aura, {
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'pettrack-web';
 
   constructor(private config: PrimeNG) {
@@ -43,5 +44,7 @@ export class AppComponent {
         cssLayer: false,
       },
     });
+    this.config.setTranslation(es);
   }
+  ngOnInit(): void {}
 }

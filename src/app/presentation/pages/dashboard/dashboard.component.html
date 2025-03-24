@@ -71,13 +71,20 @@
                   pButton
                   icon="pi pi-eye"
                   label="Detale"
-                  [outlined]="true"
                   (click)="showDetail(item)"
                 ></button>
                 <button
                   pButton
+                  icon="pi pi-file"
+                  label="Registro"
+                  severity="secondary"
+                  (click)="generatePetSheet(item)"
+                ></button>
+                <button
+                  pButton
                   icon="pi pi-credit-card"
-                  label="Generar carnet"
+                  label="Carnet"
+                  severity="secondary"
                   class="flex-auto md:flex-initial whitespace-nowrap"
                   (click)="generateIdCard(item)"
                 ></button>
@@ -123,16 +130,22 @@
                 <div class="flex gap-2">
                   <button
                     pButton
-                    icon="pi pi-credit-card"
-                    label="Generar carnet"
+                    icon="pi pi-eye"
+                    label="Detalle"
                     class="flex-auto whitespace-nowrap"
+                    (click)="showDetail(item)"
+                  ></button>
+                  <button
+                    pButton
+                    icon="pi pi-credit-card"
+                    severity="secondary"
                     (click)="generateIdCard(item)"
                   ></button>
                   <button
                     pButton
-                    icon="pi pi-eye"
-                    outlined
-                    (click)="showDetail(item)"
+                    icon="pi pi-file"
+                    severity="secondary"
+                    (click)="generatePetSheet(item)"
                   ></button>
                 </div>
               </div>
