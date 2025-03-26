@@ -13,12 +13,7 @@
         Ingrese sus datos proporcinados al momento de registrar sus mascotas
       </p>
     </div>
-    <form
-      [formGroup]="loginForm"
-      (submit)="login()"
-      autocomplete="off"
-      (ngSubmit)="login()"
-    >
+    <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
       <div class="card flex justify-center">
         <div pFocusTrap class="w-full flex flex-col gap-6">
           <div class="flex flex-col gap-1">
@@ -57,21 +52,21 @@
                 <p-button class="p-datepicker-next hidden">Next</p-button>
               </ng-template></p-datepicker
             >
-            @if(loginForm.get("birthDate")?.invalid && loginForm.get('birthDate')?.dirty){
+            @if(loginForm.get("birthDate")?.invalid &&
+            loginForm.get('birthDate')?.dirty){
             <p-message severity="error" variant="simple" size="small">
               {{ loginForm.get("birthDate")?.errors | formErrorMessages }}
             </p-message>
             }
           </div>
-
           @if (message()) {
           <div class="card">
             <p-message
               severity="error"
               icon="pi pi-times-circle"
               styleClass="mb-2"
-              [life]="4000"
-              (onClose)="this.message.set(null)"
+              [life]="3000"
+              closable
               >{{ message() }}
             </p-message>
           </div>
@@ -79,9 +74,9 @@
           <p-button
             type="submit"
             label="Ingresar"
-            class="mt-2"
-            styleClass="w-full"
+            [loading]="isLoading()"
             [disabled]="loginForm.invalid"
+            styleClass="w-full"
           />
         </div>
       </div>

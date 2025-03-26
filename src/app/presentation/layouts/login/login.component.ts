@@ -56,7 +56,7 @@ export default class LoginComponent {
       pattern: 'No se permiten caracteres especialses',
     },
   };
-
+  isLoading = signal(false);
   message = signal<string | null>(null);
 
   loginForm: FormGroup = this._formBuilder.group({
@@ -73,18 +73,28 @@ export default class LoginComponent {
   });
 
   login() {
+    this.isLoading.set(true);
     this.authService
       .login(this.loginForm.value)
       .pipe(finalize(() => this.loginForm.reset()))
       .subscribe({
         next: () => {
+          this.isLoading.set(false);
           this.router.navigateByUrl('/pets');
         },
         error: (error) => {
+          this.isLoading.set(false);
           if (error instanceof HttpErrorResponse) {
-            this.message.set(error.error['message'] ?? 'Solicitud invalida');
+            this.showMessage(error.error['message'] ?? 'Solicitud invalida');
           }
         },
       });
+  }
+
+  showMessage(message: string) {
+    this.message.set(message);
+    setTimeout(() => {
+      this.message.set(null);
+    }, 3000);
   }
 }
