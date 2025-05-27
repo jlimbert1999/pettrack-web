@@ -14,15 +14,29 @@ export class AuthService {
   private _user = signal<user | null>(null);
   user = computed(() => this._user());
 
+  private _fullname = signal<string | null>(null);
+  fullname = computed(() => this._fullname());
+  avatarLetter = computed(() =>
+    this._fullname()?.trim()?.charAt(0).toUpperCase()
+  );
+
+  constructor() {
+    this._fullname.set(localStorage.getItem('fullname'));
+  }
+
   login(form: Object) {
     return this.http
-      .post<{ token: string }>(`${this.url}/auth`, form)
-      .pipe(map(({ token }) => this.setAuthentication(token)));
+      .post<{ token: string; fullname: string }>(`${this.url}/auth`, form)
+      .pipe(
+        map(({ token, fullname }) => this.setAuthentication(token, fullname))
+      );
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('fullname');
     this._user.set(null);
+    this._fullname.set(null);
   }
 
   checkAuthStatus() {
@@ -31,19 +45,17 @@ export class AuthService {
       this.logout();
       return of(false);
     }
-    const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<user>(`${this.url}/auth`, { headers }).pipe(
+    return this.http.get<user>(`${this.url}/auth`).pipe(
       tap((resp) => this._user.set(resp)),
       map(() => true),
-      catchError(() => {
-        this.logout();
-        return of(false);
-      })
+      catchError(() => of(false))
     );
   }
 
-  private setAuthentication(token: string): boolean {
+  private setAuthentication(token: string, fullname: string): boolean {
     localStorage.setItem('token', token);
+    localStorage.setItem('fullname', fullname);
+    this._fullname.set(fullname);
     return true;
   }
 }

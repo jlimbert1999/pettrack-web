@@ -1,4 +1,9 @@
-<div class="flex items-center p-3 justify-end">
+<div class="flex items-center p-3 justify-between animate-fadein">
+  <img
+    src="images/logos/sacaba-white.png"
+    class="h-16 sm:h-20"
+    alt="Institution logo"
+  />
   <p-button
     icon="pi pi-home"
     [rounded]="true"
@@ -10,137 +15,143 @@
 </div>
 
 @if(isLoading()){
-  <div class="h-[90vh] flex items-center justify-center">
-    <p-progress-spinner strokeWidth="6" fill="transparent" animationDuration=".5s" [style]="{ width: '100px', height: '100px' }" />
-  </div>
-}
-@else {
-  <section>
-    <div class="mx-auto max-w-screen-xl px-4 sm:py-8 sm:px-6 lg:px-8 animate-fadein">
-      <p class="mb-8 text-2xl sm:text-4xl font-semibold text-center">
-        Descripción mascota
-      </p>
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-center md:gap-8">
-        <div>
-          <div class="h-52 sm:h-72 w-full bg-surface-50 mb-6">
-            <img
-              [src]="pet()?.image"
-              alt=""
-              class="w-full h-full object-contain"
-            />
-            <div class="text-center text-xl mt-4 font-bold">
-              Nro. de mascota: {{ pet()?.code }}
-            </div>
-          </div>
-        </div>
-        <div class="mt-6">
-          <div class="max-w-lg md:max-w-none">
-            <div class="flow-root">
-              <dl class="-my-3 divide-y divide-gray-200 text-sm">
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Nombre</dt>
-  
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.name }}
-                  </dd>
-                </div>
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Propietario</dt>
-  
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.owner?.first_name | titlecase }}
-                    {{ pet()?.owner?.middle_name | titlecase }}
-                    {{ pet()?.owner?.last_name | titlecase }}
-                  </dd>
-                </div>
-  
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Direccion</dt>
-  
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.owner?.address }}
-                  </dd>
-                </div>
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Telefono</dt>
-  
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.owner?.phone }}
-                  </dd>
-                </div>
-  
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Raza</dt>
-  
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.breed?.name }}
-                  </dd>
-                </div>
-  
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Macho - Hembra</dt>
-  
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.sex | titlecase }}
-                  </dd>
-                </div>
-  
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Color</dt>
-  
-                  <dd class="text-gray-700 sm:col-span-2">{{ pet()?.color }}</dd>
-                </div>
-  
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Registo</dt>
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.createdAt | date : "short" }}
-                  </dd>
-                </div>
-  
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Esterilizado</dt>
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.is_neutered ? "SI" : "NO" }}
-                  </dd>
-                </div>
-  
-                <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Descripcion</dt>
-                  <dd class="text-gray-700 sm:col-span-2">
-                    {{ pet()?.description ?? "----" }}
-                  </dd>
-                </div>
-              </dl>
-            </div>
+<div class="h-[90vh] flex items-center justify-center">
+  <p-progress-spinner
+    strokeWidth="6"
+    fill="transparent"
+    animationDuration=".5s"
+    [style]="{ width: '100px', height: '100px' }"
+  />
+</div>
+} @else {
+<section>
+  <div
+    class="mx-auto max-w-screen-xl px-4 sm:py-8 sm:px-6 lg:px-8 animate-fadein"
+  >
+    <p class="mb-8 text-2xl sm:text-4xl font-semibold text-center">
+      Detalle de la mascota
+    </p>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-center md:gap-8">
+      <div>
+        <div class="h-52 sm:h-72 w-full bg-surface-50 mb-6">
+          <img
+            [src]="pet()?.image"
+            alt=""
+            class="w-full h-full object-contain"
+          />
+          <div class="text-center text-xl mt-4 font-bold">
+            Codigo: {{ pet()?.code }}
           </div>
         </div>
       </div>
-      <div class="mt-12">
-        <p class="text-2xl font-medium">Tratamientos</p>
-      </div>
-      <div class="mt-2">
-        <ul class="rounded-lg shadow divide-y divide-gray-200 h-full">
-          @for (item of pet()?.treatments; track $index) {
-          <li class="px-2 py-4">
-            <div class="flex flex-col sm:flex-row sm:justify-between space-y-1">
-              <span class="font-semibold text-md">
-                {{ item.typeTreatment.name }}
-              </span>
-              <span class="text-gray-500 text-sm">
-                {{ item.date | date : "longDate" }}
-              </span>
-            </div>
-            <p class="text-gray-700 mt-2">
-              {{ item.typeTreatment.category }} -
-              {{ item.medicalCenter.name }}
-            </p>
-          </li>
-          } @empty {
-          <p class="font-medium">Sin registros</p>
-          }
-        </ul>
+      <div class="mt-6">
+        <div class="max-w-lg md:max-w-none">
+          <div class="flow-root">
+            <dl class="-my-3 divide-y divide-gray-200 text-sm">
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Nombre</dt>
+
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.name }}
+                </dd>
+              </div>
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Propietario</dt>
+
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.owner?.first_name | titlecase }}
+                  {{ pet()?.owner?.middle_name | titlecase }}
+                  {{ pet()?.owner?.last_name | titlecase }}
+                </dd>
+              </div>
+
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Direccion</dt>
+
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.owner?.address }}
+                </dd>
+              </div>
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Telefono</dt>
+
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.owner?.phone }}
+                </dd>
+              </div>
+
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Raza</dt>
+
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.breed?.name }}
+                </dd>
+              </div>
+
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Macho - Hembra</dt>
+
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.sex | titlecase }}
+                </dd>
+              </div>
+
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Color</dt>
+
+                <dd class="text-gray-700 sm:col-span-2">{{ pet()?.color }}</dd>
+              </div>
+
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Registo</dt>
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.createdAt | date : "short" }}
+                </dd>
+              </div>
+
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Esterilizado</dt>
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.is_neutered ? "SI" : "NO" }}
+                </dd>
+              </div>
+
+              <div class="grid grid-cols-1 gap-1 py-2 sm:grid-cols-3 sm:gap-4">
+                <dt class="font-medium text-gray-900">Descripcion</dt>
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ pet()?.description ?? "----" }}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+    <div class="mt-12">
+      <p class="text-2xl font-medium">Tratamientos</p>
+    </div>
+    <div class="mt-2">
+      <ul class="rounded-lg shadow divide-y divide-gray-200 h-full">
+        @for (item of pet()?.treatments; track $index) {
+        <li class="px-2 py-4">
+          <div class="flex flex-col sm:flex-row sm:justify-between space-y-1">
+            <span class="font-semibold text-md">
+              {{ item.typeTreatment.name }}
+            </span>
+            <span class="text-gray-500 text-sm">
+              {{ item.date | date : "longDate" }}
+            </span>
+          </div>
+          <p class="text-gray-700 mt-2">
+            {{ item.typeTreatment.category }} -
+            {{ item.medicalCenter.name }}
+          </p>
+        </li>
+        } @empty {
+        <p class="font-medium">Sin registros</p>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
 }

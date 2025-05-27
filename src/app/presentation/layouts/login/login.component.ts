@@ -4,25 +4,26 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { FocusTrapModule } from 'primeng/focustrap';
-import { ButtonModule } from 'primeng/button';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
   ReactiveFormsModule,
+  FormBuilder,
+  FormsModule,
+  FormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FocusTrapModule } from 'primeng/focustrap';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { DatePicker } from 'primeng/datepicker';
+import { ButtonModule } from 'primeng/button';
 import { Message } from 'primeng/message';
 
-import { AuthService } from '../../services';
-import { HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs';
+
+import { AuthService } from '../../services';
 import {
   FieldValidationErrorMessages,
   FormErrorMessagesPipe,
@@ -56,9 +57,9 @@ export default class LoginComponent {
       pattern: 'No se permiten caracteres especialses',
     },
   };
+
   isLoading = signal(false);
   message = signal<string | null>(null);
-
   loginForm: FormGroup = this._formBuilder.group({
     dni: [
       '',
@@ -71,6 +72,8 @@ export default class LoginComponent {
     ],
     birthDate: ['', Validators.required],
   });
+
+  maxDate = new Date();
 
   login() {
     this.isLoading.set(true);

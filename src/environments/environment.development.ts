@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
-  queryUrl: 'http://localhost:4200/verify',
+  apiUrl: 'http://192.168.30.34:3000/api',
+  // current app url after deployment
+  queryUrl: 'http://localhost:3000/verify',
 };

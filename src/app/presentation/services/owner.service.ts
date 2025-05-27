@@ -21,9 +21,7 @@ export class OwnerService {
   }
 
   getPets() {
-    const token = localStorage.getItem('token');
-    const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<pet[]>(`${this.url}/pets`, { headers }).pipe(
+    return this.http.get<pet[]>(`${this.url}/pets`).pipe(
       map((resp) =>
         resp.map(({ image, ...props }) => ({
           ...props,
