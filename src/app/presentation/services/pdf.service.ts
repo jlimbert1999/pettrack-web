@@ -26,7 +26,7 @@ export class PdfService {
 
     const documentDefinition: TDocumentDefinitions = {
       pageSize: { width: 250, height: 150 },
-      pageMargins: [8, 4, 8, 8],
+      pageMargins: [8, 10, 8, 8],
       background: [
         {
           image: backgroundImage,
@@ -86,7 +86,11 @@ export class PdfService {
                       [{ text: 'Nombre:', bold: true }, pet.name],
                       [
                         { text: 'Raza:', bold: true },
-                        `${pet.breed.name} ${pet.breed.species}`,
+                        `${pet.breed.name} `,
+                      ],
+                      [
+                        { text: 'Tipo:', bold: true },
+                        `${pet.breed.species}`,
                       ],
                       [
                         { text: 'Macho/Hembra:', bold: true },
