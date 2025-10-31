@@ -18,7 +18,7 @@ export class PdfService {
 
   async generateCard(pet: pet, owner: user) {
     const qrData = `${this.queryUrl}/${pet.id}`;
-    const photo = await this.imageABase64(pet.image ?? 'images/no-image.png');
+    const photo = pet.image ? await this.imageABase64(pet.image) : null;
     const leftIcon = await this.imageABase64('images/logos/sacaba-white.png');
     const rightIcon = await this.imageABase64('images/logos/slogan.png');
     const backgroundImage = await this.imageABase64('images/card.png');
@@ -60,13 +60,29 @@ export class PdfService {
           ],
         },
         {
-          marginTop: 15,
+          marginTop: 5,
           columns: [
             {
               alignment: 'center',
               width: 60,
               stack: [
-                { image: photo, width: 60, height: 60 },
+                ...(photo
+                  ? [{ image: photo, width: 60, height: 60 }]
+                  : [
+                      {
+                        table: {
+                          widths: [50],
+                          heights: [50],
+                          body: [['']], // celda vacía
+                        },
+                        layout: {
+                          hLineWidth: () => 0.5,
+                          vLineWidth: () => 0.5,
+                          hLineColor: () => '#999',
+                          vLineColor: () => '#999',
+                        },
+                      },
+                    ]),
                 {
                   text: pet.name.toUpperCase(),
                   bold: true,
@@ -84,14 +100,8 @@ export class PdfService {
                     widths: [45, '*'],
                     body: [
                       [{ text: 'Nombre:', bold: true }, pet.name],
-                      [
-                        { text: 'Raza:', bold: true },
-                        `${pet.breed.name} `,
-                      ],
-                      [
-                        { text: 'Tipo:', bold: true },
-                        `${pet.breed.species}`,
-                      ],
+                      [{ text: 'Raza:', bold: true }, `${pet.breed.name} `],
+                      [{ text: 'Tipo:', bold: true }, `${pet.breed.species}`],
                       [
                         { text: 'Macho/Hembra:', bold: true },
                         pet.sex.toUpperCase(),
@@ -102,10 +112,20 @@ export class PdfService {
                       ],
                       [
                         { text: 'Propietario:', bold: true },
-                        owner.fullname.toUpperCase(),
+                        owner.fullname.length > 75
+                          ? owner.fullname.trim().slice(0, 75) + '...'
+                          : owner.fullname.trim(),
                       ],
                       [{ text: 'Telefono:', bold: true }, owner.phone],
-                      [{ text: 'Dirección:', bold: true }, owner.address],
+                      [
+                        { text: 'Dirección:', bold: true },
+                        {
+                          text:
+                            owner.address.length > 75
+                              ? owner.address.slice(0, 75) + '...'
+                              : owner.address,
+                        },
+                      ],
                     ],
                   },
                   layout: 'noBorders',

@@ -21,13 +21,6 @@ export class OwnerService {
   }
 
   getPets() {
-    return this.http.get<pet[]>(`${this.url}/pets`).pipe(
-      map((resp) =>
-        resp.map(({ image, ...props }) => ({
-          ...props,
-          image: image ?? 'images/no-image.png',
-        }))
-      )
-    );
+    return this.http.get<pet[]>(`${this.url}/pets`);
   }
 }
